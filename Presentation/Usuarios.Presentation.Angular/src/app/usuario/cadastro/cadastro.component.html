@@ -1,0 +1,154 @@
+<div id="app-cadastro" class="container">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Cadastrar novo usuário</h4>
+      <p class="card-text">
+        Utilize o formulário abaixo para cadastrar um novo usuário.
+      </p>
+
+      <form (ngSubmit)="salvar()" #usuarioForm="ngForm">
+        <div class="row">
+          <div class="col-sm form-group">
+            <label for="nome">Nome:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nome"
+              id="nome"
+              aria-describedby="help_nome"
+              placeholder=""
+              required
+              minlength="3"
+              [(ngModel)]="nome"
+              #m_nome="ngModel"
+            />
+            <div
+              *ngIf="m_nome.invalid && (m_nome.dirty || m_nome.touched)"
+              class="text-danger"
+            >
+              <small *ngIf="m_nome.errors.required">
+                Digite um nome.
+              </small>
+              <small *ngIf="m_nome.errors.minlength">
+                Digite um nome com 3 letras ou mais.
+              </small>
+            </div>
+          </div>
+
+          <div class="col-sm-3 form-group">
+            <label for="nascimento">Data de nascimento:</label>
+            <input
+              type="date"
+              class="form-control"
+              name="nascimento"
+              id="nascimento"
+              aria-describedby="help_nascimento"
+              placeholder=""
+              [(ngModel)]="nascimento"
+              [max]="hoje"
+              [value]="nascimento"
+              (change)="validarData()"
+              (focus)="setData()"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm form-group">
+            <label for="email">E-mail:</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              aria-describedby="help_email"
+              placeholder=""
+              required
+              email
+              [(ngModel)]="email"
+              #m_email="ngModel"
+            />
+            <div
+              *ngIf="m_email.invalid && (m_email.dirty || m_email.touched)"
+              class="text-danger"
+            >
+              <small *ngIf="m_email.errors.required">
+                Informe um e-mail.
+              </small>
+              <small *ngIf="m_email.errors.email">
+                Informe um email válido.
+              </small>
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group">
+            <label for="senha">Senha:</label>
+            <input
+              type="password"
+              class="form-control"
+              name="senha"
+              id="senha"
+              placeholder=""
+              required
+              [(ngModel)]="senha"
+              #m_senha="ngModel"
+            />
+            <div
+              *ngIf="m_senha.invalid && (m_senha.dirty || m_senha.touched)"
+              class="text-danger"
+            >
+              <small *ngIf="m_senha.errors.required">
+                Informe um e-mail.
+              </small>
+              <small *ngIf="m_senha.errors.email">
+                Informe um email válido.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2 form-group">
+            <label for="sexo">Sexo</label>
+            <select
+              [(ngModel)]="sexo"
+              class="form-control"
+              name="sexo"
+              id="sexo"
+            >
+              <option value="1">Feminino</option>
+              <option value="2">Masculino</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-auto mr-auto">
+            <button type="button" class="btn btn-link" (click)="voltar()">
+              Voltar
+            </button>
+          </div>
+          <div class="col-auto">
+            <button
+              type="submit"
+              name=""
+              id="btn-salvar"
+              class="btn btn-primary"
+              btn-lg
+              btn-block
+              [disabled]="!usuarioForm.form.valid"
+            >
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-message-dialog
+  (closed)="closeModal($event)"
+  [title]="titulo"
+  [message]="mensagem"
+></app-message-dialog>

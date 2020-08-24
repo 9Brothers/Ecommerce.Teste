@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Usuarios.Domain.Interfaces.Repositories;
 
@@ -14,12 +15,14 @@ namespace Usuarios.Infrastructure.Redis
     {
         private readonly IDistributedCache _cache;
         private readonly DistributedCacheEntryOptions _cacheOptions;
+        private readonly int _expirationMinutes;
 
-        public RedisRepository(IDistributedCache cache)
+        public RedisRepository(IDistributedCache cache, IConfiguration configuration)
         {
             _cache = cache;
+            _expirationMinutes = configuration.GetValue<int>("Redis:ExpirationMinutes", 1);
             _cacheOptions = new DistributedCacheEntryOptions();
-            _cacheOptions.SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+            _cacheOptions.SetAbsoluteExpiration(TimeSpan.FromMinutes(_expirationMinutes));
         }
 
         public async Task<T> Get(string key)

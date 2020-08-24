@@ -17,17 +17,19 @@ namespace Usuarios.Domain.Services
 
         public async Task<Usuario> Add(Usuario usuario)
         {
-            usuario.Id = await _usuarioRepository.Add(usuario);
+            var id = await _usuarioRepository.Add(usuario);
+            
+            usuario = await _usuarioRepository.Get(id);
 
             return usuario;
         }
 
-        public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 0)
+        public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 1)
         {
             return await _usuarioRepository.Filter(usuario, pagina);
         }
 
-        public async Task<IEnumerable<Usuario>> GetAll(int pagina = 0)
+        public async Task<IEnumerable<Usuario>> GetAll(int pagina = 1)
         {
             return await _usuarioRepository.GetAll(pagina);
         }

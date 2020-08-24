@@ -1,0 +1,87 @@
+<div id="app-lista" class="container">
+  <div id="filter" class="card">
+    <div class="card-body">
+      <h4 class="card-title">Lista de usuários</h4>
+
+      <div class="row">
+        <div class="col-sm-6 form-group mr-auto">
+          <div class="row">
+            <div class="col-sm-10">
+              <label for="nome">Nome</label>
+              <input
+                type="text"
+                name="nome"
+                id="nome"
+                class="form-control"
+                placeholder=""
+                (keyup)="filter()"
+                [(ngModel)]="nome"
+              />
+            </div>
+            <div class="col-sm-2">
+              <label for="ativo">Ativo</label>
+              <input
+                type="checkbox"
+                name="ativo"
+                id="ativo"
+                class="form-control"
+                placeholder=""
+                (ngModelChange)="filter()"
+                [(ngModel)]="ativo"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <div class="form-group">
+            <label for="btn-cadastrar">&nbsp;</label>
+            <a
+              id="btn-cadastrar"
+              [routerLink]="['/Cadastro']"
+              class="form-control btn btn-primary"
+              >Cadastrar usuário</a
+            >
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-1 form-group align-center"></div>
+
+        <div class="col-sm-6"></div> -->
+      </div>
+    </div>
+  </div>
+
+  <div id="usuarios" class="card">
+    <div class="row">
+      <div class="col-sm">
+        <div class="card">
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Nascimento</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Sexo</th>
+                  <th scope="col">Ativo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                  <td>{{ usuario.nome }}</td>
+                  <td>{{ usuario.nascimento | date: "dd/MM/yyyy" }}</td>
+                  <td>{{ usuario.email }}</td>
+                  <td>{{ usuario.sexo.descricao }}</td>
+                  <td>{{ usuario.ativo ? "Sim" : "Não" }}</td>
+                </tr>
+
+                <tr></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

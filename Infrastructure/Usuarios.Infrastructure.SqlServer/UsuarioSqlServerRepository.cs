@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,7 @@ namespace Usuarios.Infrastructure.SqlServer
             return base.Add(null);
         }
 
-        public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 0)
+        public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 1)
         {
             ProcedureName = "psUsuariosFilter";
 
@@ -43,7 +44,7 @@ namespace Usuarios.Infrastructure.SqlServer
             return await Query();
         }
 
-        public async Task<IEnumerable<Usuario>> GetAll(int pagina)
+        public async Task<IEnumerable<Usuario>> GetAll(int pagina = 1)
         {
             ProcedureName = "psUsuarios";
 
@@ -60,9 +61,36 @@ namespace Usuarios.Infrastructure.SqlServer
             }
         }
 
+        public async Task<Usuario> Get(int id)
+        {
+            ProcedureName = "psUsuario";
+
+            Params = new {
+                UsuarioId = id
+            };
+
+            var result = await Query();
+
+            return result.FirstOrDefault();
+        }
+
+        public async Task<Usuario> Get(Guid usuarioGuid)
+        {
+            ProcedureName = "psUsuario";
+
+            Params = new {
+                UsuarioGuid = usuarioGuid
+            };
+
+            var result = await Query();
+
+            return result.FirstOrDefault();
+        }
+
         private Func<Usuario, Sexo, Usuario> mapUsuario = (Usuario usuario, Sexo sexo) =>
         {
             usuario.Sexo = sexo;
+            usuario.SexoId = (byte)sexo?.Id;
                     
             return usuario;
         };

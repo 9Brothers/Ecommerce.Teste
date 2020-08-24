@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Usuarios.Application.Interfaces;
 using Usuarios.Domain.Entities;
+using Usuarios.Domain.Interfaces.Repositories;
 using Xunit;
 
 namespace Usuarios.Presentation.Tests
@@ -10,10 +11,12 @@ namespace Usuarios.Presentation.Tests
     public class UsuarioTest
     {
         private readonly IUsuarioAppService _usuarioAppService;
+        private readonly IUsuarioSqlServerRepository _usuarioSqlServerRepository;
 
-        public UsuarioTest(IUsuarioAppService usuarioAppService)
+        public UsuarioTest(IUsuarioAppService usuarioAppService, IUsuarioSqlServerRepository usuarioSqlServerRepository)
         {
             _usuarioAppService = usuarioAppService;
+            _usuarioSqlServerRepository = usuarioSqlServerRepository;
         }
 
         [Theory]
@@ -51,6 +54,28 @@ namespace Usuarios.Presentation.Tests
             });
 
             Assert.True(usuarios.Count() >= 0);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async Task GetById(int id)
+        {
+            var usuarios = await _usuarioSqlServerRepository.Get(id);
+
+            Assert.True(true);
+        }
+
+        [Theory]
+        [InlineData("85385a25-d9ab-4a70-a21c-ceb328b68dcd")]
+        [InlineData("8dad3745-a602-495a-81ee-21e5be0305fd")]
+        public async Task GetByGuid(string guid)
+        {
+            var usuarioGuid = Guid.Parse(guid);
+
+            var usuarios = await _usuarioSqlServerRepository.Get(usuarioGuid);
+
+            Assert.True(true);
         }
     }
 }

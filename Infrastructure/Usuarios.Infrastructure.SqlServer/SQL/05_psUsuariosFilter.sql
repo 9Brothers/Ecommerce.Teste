@@ -17,6 +17,9 @@ CREATE PROCEDURE dbo.psUsuariosFilter
     @Pagina INT = 0
 -- add more stored procedure parameters here
 AS
+    IF @Nome IS NULL
+        SET @Nome = ''
+
     -- body of the stored procedure
     SELECT TOP 50 * FROM (
         SELECT 
@@ -34,7 +37,7 @@ AS
         FROM Usuarios U (NOLOCK)
         INNER JOIN Sexos S (NOLOCK) ON U.SexoId = S.SexoId
     ) AS U
-    WHERE @Pagina * 50 < RN
+    WHERE (@Pagina - 1) * 50 < RN
     AND U.Ativo = @Ativo
     AND U.Nome LIKE @Nome + '%'
     ORDER BY U.RN

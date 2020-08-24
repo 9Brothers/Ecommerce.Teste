@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+package-lock.json
 
 # Build results
 

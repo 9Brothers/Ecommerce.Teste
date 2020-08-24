@@ -1,5 +1,18 @@
 version: '3'
 services:
+    site:
+        build: ./Presentation/Usuarios.Presentation.Angular
+        ports: 
+            - "4200:80"
+        depends_on: 
+            - api
+    api:
+        build: ./Presentation/Usuarios.Presentation.Api
+        ports: 
+            - "7491:80"
+        depends_on: 
+            - sqlserver
+            - redis
     sqlserver:
         image: mcr.microsoft.com/mssql/server:2017-latest
         environment:
@@ -11,3 +24,4 @@ services:
         image: redis
         ports: 
             - "6379:6379"
+    

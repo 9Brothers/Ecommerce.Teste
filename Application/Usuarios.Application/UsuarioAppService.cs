@@ -30,13 +30,22 @@ namespace Usuarios.Application
             return await _usuarioService.Add(usuario);
         }
 
-        public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 0)
+        public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 1)
         {
+            if (usuario == null) throw new Exception("Informe o usuario.");
+            else if (usuario.Nome?.Length > 0 && usuario.Nome?.Length < 3) throw new Exception("O campo \"Nome\" precisa ter pelo menos 3 caracteres.");
+            if (pagina < 0) throw new Exception("Informe uma página maior que zero.");
+
+            // if (string.IsNullOrEmpty(usuario.Nome?.Trim()))
+            //     return await _usuarioService.GetAll(pagina);
+
             return await _usuarioService.Filter(usuario, pagina);
         }
 
-        public async Task<IEnumerable<Usuario>> GetAll(int pagina = 0)
+        public async Task<IEnumerable<Usuario>> GetAll(int pagina = 1)
         {
+            if (pagina < 0) throw new Exception("Informe uma página maior que zero.");
+            
             return await _usuarioService.GetAll(pagina);
         }
     }

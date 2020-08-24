@@ -7,7 +7,7 @@ namespace Usuarios.Application.Interfaces
     public interface IUsuarioAppService
     {
         Task<Usuario> Add(Usuario usuario);
-        Task<IEnumerable<Usuario>> GetAll(int pagina = 0);
-        Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 0);
+        Task<IEnumerable<Usuario>> GetAll(int pagina = 1);
+        Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 1);
     }
 }
