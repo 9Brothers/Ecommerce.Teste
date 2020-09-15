@@ -9,5 +9,11 @@
         "mssql",
         "sqlserver",
         "tabindex"
-    ]
+    ],
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.tabSize": 2
+    }
 }
