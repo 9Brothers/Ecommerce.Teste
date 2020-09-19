@@ -18,7 +18,7 @@ namespace Usuarios.Infrastructure.SqlServer
         
         public SqlServerRepository(IConfiguration configuration)
         {
-            _connectionString = Environment.GetEnvironmentVariable("SQLSERVER_CONNECTION_STRING") ?? configuration.GetConnectionString("UsuariosDb");
+            _connectionString = Environment.GetEnvironmentVariable("SQLSERVER_CONNECTION_STRING") ?? configuration.GetConnectionString("SqlServer_UsuariosDb");
         }
 
         public virtual async Task<int> Add(T entity)

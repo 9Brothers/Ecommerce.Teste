@@ -28,7 +28,7 @@ namespace Usuarios.Presentation.Tests
             //     .AddJsonFile("appsettings.json", false)
             //     .Build();
             
-            Injector.Inject(services, configuration);
+            Injector.ConfigureServices(services, configuration);
         }
     }
 }

@@ -35,7 +35,8 @@ spec:
                 key: SA_PASSWORD                  
         volumeMounts:
           - name: sqlserver-storage
-            mountPath: /var/opt/mssql            
+            mountPath: /var/opt/mssql
+            subPath: sqlserver
 ---
 apiVersion: v1
 kind: Service
