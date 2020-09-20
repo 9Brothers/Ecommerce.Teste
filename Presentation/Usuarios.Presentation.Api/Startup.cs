@@ -26,7 +26,7 @@ namespace Usuarios.Presentation.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Injector.Inject(services, Configuration);
+            Injector.ConfigureServices(services, Configuration);
             
             services.AddCors(options => {
                 options.AddDefaultPolicy(builder => {
@@ -52,6 +52,8 @@ namespace Usuarios.Presentation.Api
             app.UseRouting();
 
             app.UseCors();
+
+            
 
             app.UseAuthorization();
 

@@ -1,0 +1,13 @@
+USE UsuariosDb
+
+BEGIN TRAN
+
+BEGIN TRY
+    INSERT INTO Sexos VALUES (1, 'Feminino')
+    INSERT INTO Sexos VALUES (2, 'Masculino')
+
+    COMMIT TRAN
+END TRY
+BEGIN CATCH
+    ROLLBACK TRAN
+END CATCH

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Usuarios.Domain.Entities;
 using Usuarios.Domain.Interfaces.Repositories;
+using Usuarios.Domain.Interfaces.Repositories.SQL.Postgres;
 
 namespace Usuarios.Infrastructure.CQRS
 {
@@ -12,7 +13,7 @@ namespace Usuarios.Infrastructure.CQRS
         private readonly IUsuarioSqlServerRepository _usuarioSqlServerRepository;
         private readonly IRedisRepository<Usuario> _redisRepository;
 
-        public UsuarioCQRSRepository(IUsuarioSqlServerRepository usuarioSqlServerRepository, IRedisRepository<Usuario> redisRepository) : base(usuarioSqlServerRepository, redisRepository)
+        public UsuarioCQRSRepository(IUsuarioSqlServerRepository usuarioSqlServerRepository, IRedisRepository<Usuario> redisRepository, IUsuarioPostgresSqlRepository usuarioPostgresSqlRepository) : base(usuarioSqlServerRepository, redisRepository, usuarioPostgresSqlRepository)
         {
             _usuarioSqlServerRepository = usuarioSqlServerRepository;
             _redisRepository = redisRepository;

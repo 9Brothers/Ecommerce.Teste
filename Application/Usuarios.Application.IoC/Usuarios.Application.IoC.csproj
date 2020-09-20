@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Infrastructure\Usuarios.Infrastructure.SqlServer\Usuarios.Infrastructure.SqlServer.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Usuarios.Infrastructure.CQRS\Usuarios.Infrastructure.CQRS.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Usuarios.Infrastructure.Redis\Usuarios.Infrastructure.Redis.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Usuarios.Infrastructure.PostgresSql\Usuarios.Infrastructure.PostgresSql.csproj" />
   </ItemGroup>
 
 </Project>
