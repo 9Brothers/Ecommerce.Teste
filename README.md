@@ -18,3 +18,20 @@ Não se preocupe, o processo é bem demorado da primeira vez.
 Não se preocupe caso não apareça os novos cadastros, o cache está configurado para 1 minuto, após esse tempo, aparecerá normalmente
 
 Qualquer dúvida, podem entrar em contato comigo pelo **(11) 98725-8313**
+
+
+## Ferramentas
+
+- minikube
+  - status
+  - start
+
+- kubectl
+  - cluster-info
+  - apply -f <path-to-file> # cria o pod conforme arquivo de configuração
+  - get
+    - pods
+    - services
+
+
+  
