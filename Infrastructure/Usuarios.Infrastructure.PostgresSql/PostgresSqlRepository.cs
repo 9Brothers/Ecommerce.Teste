@@ -6,6 +6,7 @@ using Usuarios.Domain.Entities;
 using Usuarios.Domain.Interfaces.Repositories.SQL.Postgres;
 using System.Data;
 using System;
+using System.Collections.Generic;
 
 namespace Usuarios.Infrastructure.PostgresSql
 {
@@ -20,11 +21,19 @@ namespace Usuarios.Infrastructure.PostgresSql
             _connectionString = Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ?? configuration.GetConnectionString("Postgres_UsuariosDb");
         }
 
-        public virtual async Task<int> Add(T entity)
+        public virtual async Task<int> Command()
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 return await connection.QuerySingleAsync<int>(ProcedureName, Params, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task<IEnumerable<T>> Query()
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                return await connection.QueryAsync<T>(ProcedureName, Params, commandType: CommandType.StoredProcedure);
             }
         }
     }

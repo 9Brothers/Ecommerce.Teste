@@ -3,13 +3,18 @@
         "CQRS",
         "Descricao",
         "ICQRS",
+        "Npgsql",
+        "Postgres",
         "Usuario",
         "Usuarios",
         "Xunit",
         "mssql",
+        "sexoid",
         "sqlserver",
         "stephengrider",
-        "tabindex"
+        "tabindex",
+        "usuarioguid",
+        "usuarioid"
     ],
     "[yaml]": {
         "editor.tabSize": 2

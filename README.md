@@ -25,6 +25,7 @@ Qualquer dúvida, podem entrar em contato comigo pelo **(11) 98725-8313**
 - minikube
   - status
   - start
+  - Caso solicitar usuário e senha, usar o usuário docker e senha tcuser
 
 - kubectl
   - cluster-info
@@ -33,5 +34,8 @@ Qualquer dúvida, podem entrar em contato comigo pelo **(11) 98725-8313**
     - pods
     - services
 
+ 
+
 
   
+dotnet ef PostgresContext scaffold "Server=192.168.99.101;Database=usuariosdb;Port=30432;User Id=postgres;Password=mysecretpassword;" Npgsql.EntityFrameworkCore.PostgreSQL

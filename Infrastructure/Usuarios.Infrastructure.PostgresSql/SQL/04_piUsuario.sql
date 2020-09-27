@@ -1,15 +1,16 @@
-CREATE OR REPLACE PROCEDURE dbo.piUsuario(
-    Nome dbo."Usuarios".Nome%type,
-    Nascimento dbo."Usuarios".Nascimento%type,
-    SexoId dbo."Usuarios".SexoId%type,
-    Email dbo."Usuarios".Email%type,
-    Senha dbo."Usuarios".Senha%type,
-	Id INOUT dbo."Usuarios".UsuarioId%type,
-	Err INOUT TEXT
+CREATE OR REPLACE FUNCTION dbo.piUsuario(
+    _Nome TEXT,
+    _Nascimento TIMESTAMP WITHOUT TIME ZONE,
+    _SexoId SMALLINT,
+    _Email TEXT,
+    _Senha TEXT	
 )
-LANGUAGE plpgsql    
+RETURNS TABLE(
+	ResultData TEXT
+)
+LANGUAGE plpgsql
 AS $$
-DECLARE
+DECLARE	
 	CriadoEm TIMESTAMP = CURRENT_TIMESTAMP;
 	AtualizadoEm TIMESTAMP = CriadoEm;
 BEGIN
@@ -27,20 +28,22 @@ BEGIN
 	) 
 	VALUES (
 		uuid_generate_v4(), 
-		Nome, 
-		Nascimento, 
-		Email, 
-		Senha, 
+		_Nome, 
+		_Nascimento, 
+		_Email, 
+		_Senha, 
 		B'1', 
 		CriadoEm, 
 		AtualizadoEm, 
-		SexoId
-	)
-	RETURNING UsuarioId INTO Id;      
+		_SexoId
+	);
+	
+	RETURN QUERY
+		SELECT CAST(LASTVAL() AS TEXT)  AS ResultData;
 
 EXCEPTION
     WHEN OTHERS THEN
-        Err := SQLERRM;    	
-		
-	COMMIT;
+		RETURN QUERY
+			SELECT SQLERRM AS ResultData;
+			
 END;$$

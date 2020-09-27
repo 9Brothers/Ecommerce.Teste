@@ -4,6 +4,8 @@ namespace Usuarios.Domain.Entities
 {
     public class Usuario : SqlEntity
     {
+        public int UsuarioId { get; set; }
+        public Guid UsuarioGuid { get; set; }
         public string Nome { get; set; }
         public DateTime Nascimento { get; set; }
         public string Email { get; set; }

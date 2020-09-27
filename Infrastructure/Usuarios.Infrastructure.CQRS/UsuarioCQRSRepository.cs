@@ -10,13 +10,18 @@ namespace Usuarios.Infrastructure.CQRS
 {
     public class UsuarioCQRSRepository : CQRSRepository<Usuario>, IUsuarioCQRSRepository
     {
-        private readonly IUsuarioSqlServerRepository _usuarioSqlServerRepository;
+        private readonly IUsuarioPostgresSqlRepository _usuarioPostgresSqlRepository;
         private readonly IRedisRepository<Usuario> _redisRepository;
 
         public UsuarioCQRSRepository(IUsuarioSqlServerRepository usuarioSqlServerRepository, IRedisRepository<Usuario> redisRepository, IUsuarioPostgresSqlRepository usuarioPostgresSqlRepository) : base(usuarioSqlServerRepository, redisRepository, usuarioPostgresSqlRepository)
         {
-            _usuarioSqlServerRepository = usuarioSqlServerRepository;
+            _usuarioPostgresSqlRepository = usuarioPostgresSqlRepository;
             _redisRepository = redisRepository;
+        }
+
+        public async Task<int> Add(Usuario entity)
+        {
+            return await _usuarioPostgresSqlRepository.Add(entity);
         }
 
         public async Task<IEnumerable<Usuario>> Filter(Usuario usuario, int pagina = 1)
@@ -25,7 +30,7 @@ namespace Usuarios.Infrastructure.CQRS
 
             if (result.Count() == 0)
             {
-                result = await _usuarioSqlServerRepository.Filter(usuario, pagina);
+                result = await _usuarioPostgresSqlRepository.Filter(usuario, pagina);
 
                 if (result != null)
                     await _redisRepository.Set($"Usuarios_Nome_{usuario.Nome}_Ativo_{usuario.Ativo}_Pagina_{pagina}", result);
@@ -40,7 +45,7 @@ namespace Usuarios.Infrastructure.CQRS
 
             if (result == null)
             {
-                result = await _usuarioSqlServerRepository.Get(id);
+                result = await _usuarioPostgresSqlRepository.Get(id);
 
                 if (result != null)
                     await _redisRepository.Set($"Usuario_Id_${id}", result);
@@ -55,7 +60,7 @@ namespace Usuarios.Infrastructure.CQRS
 
             if (result == null)
             {
-                result = await _usuarioSqlServerRepository.Get(usuarioGuid);
+                result = await _usuarioPostgresSqlRepository.Get(usuarioGuid);
 
                 if (result != null)
                     await _redisRepository.Set($"Usuario_Guid_${usuarioGuid.ToString()}", result);
@@ -70,7 +75,7 @@ namespace Usuarios.Infrastructure.CQRS
 
             if (result.Count() == 0)
             {
-                result = await _usuarioSqlServerRepository.GetAll(pagina);
+                result = await _usuarioPostgresSqlRepository.GetAll(pagina);
 
                 if (result != null)
                     await _redisRepository.Set($"Usuarios_Pagina_${pagina}", result);

@@ -1,3 +1,5 @@
+using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Usuarios.Application.Interfaces;
@@ -34,7 +36,11 @@ namespace Usuarios.Application.IoC
             services.AddDistributedRedisCache(options => {
                 options.Configuration = configuration.GetConnectionString("Redis");
                 options.InstanceName = "Usuarios-";                
-            });            
+            });       
+
+            // * Entity Framework
+            services.AddDbContext<UsuariosPostgresDbContext>(options => 
+                options.UseNpgsql(Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ?? configuration.GetConnectionString("Postgres_UsuariosDb")));
         }
     }
 }

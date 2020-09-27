@@ -18,10 +18,5 @@ namespace Usuarios.Infrastructure.CQRS
             _redisRepository = redisRepository;
             _postgresSqlRepository = postgresSqlRepository;
         }
-
-        public async Task<int> Add(T entity)
-        {
-            return await _postgresSqlRepository.Add(entity);
-        }
     }
 }

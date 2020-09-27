@@ -5,6 +5,6 @@ namespace Usuarios.Domain.Interfaces.Repositories
 {
     public interface ICQRSRepository<T>
     {
-        Task<int> Add(T entity);        
+        
     }
 }
