@@ -90,7 +90,7 @@ namespace Usuarios.Infrastructure.SqlServer
         private Func<Usuario, Sexo, Usuario> mapUsuario = (Usuario usuario, Sexo sexo) =>
         {
             usuario.Sexo = sexo;
-            usuario.SexoId = (byte)sexo?.Id;
+            usuario.SexoId = (byte)sexo?.SexoId;
                     
             return usuario;
         };

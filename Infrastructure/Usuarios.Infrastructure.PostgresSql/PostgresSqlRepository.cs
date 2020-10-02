@@ -7,34 +7,58 @@ using Usuarios.Domain.Interfaces.Repositories.SQL.Postgres;
 using System.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Usuarios.Infrastructure.PostgresSql
 {
     public class PostgresSqlRepository<T> : IPostgresSqlRepository<T> where T : SqlEntity
     {
-        protected readonly string _connectionString;
-        protected string ProcedureName;
-        protected object Params;
+        protected readonly UsuariosPostgresDbContext _usuariosContext;
 
-        public PostgresSqlRepository(IConfiguration configuration)
+        public PostgresSqlRepository(UsuariosPostgresDbContext context)
         {
-            _connectionString = Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ?? configuration.GetConnectionString("Postgres_UsuariosDb");
+            _usuariosContext = context;
         }
 
-        public virtual async Task<int> Command()
+        public virtual void Command(T entity)
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
-            {
-                return await connection.QuerySingleAsync<int>(ProcedureName, Params, commandType: CommandType.StoredProcedure);
+            if (entity.CriadoEm == default(DateTime))
+            {                
+                entity.CriadoEm = DateTime.Now;
+                entity.AtualizadoEm = entity.CriadoEm;
             }
+            else
+            {
+                entity.AtualizadoEm = DateTime.Now;
+            }
+
+            _usuariosContext.Add<T>(entity);
         }
 
-        public async Task<IEnumerable<T>> Query()
+        public void Commit()
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            _usuariosContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            if (_usuariosContext != null)
             {
-                return await connection.QueryAsync<T>(ProcedureName, Params, commandType: CommandType.StoredProcedure);
+                _usuariosContext.Dispose();
             }
+
+            GC.SuppressFinalize(this);
+        }
+
+        public async Task<List<T>> Query(Expression<Func<T, bool>> func, int page = 0)
+        {
+            return await _usuariosContext.Set<T>()
+                .Where(func)
+                .Take(50)
+                .Skip(page * 50)
+                .ToListAsync();
         }
     }
 }

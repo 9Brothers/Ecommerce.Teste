@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usuarios.Presentation.Api",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usuarios.Infrastructure.PostgresSql", "Infrastructure\Usuarios.Infrastructure.PostgresSql\Usuarios.Infrastructure.PostgresSql.csproj", "{8A86A889-409C-49F5-941B-DB43BE7D5166}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usuarios.Infrastructure.EfCore", "Infrastructure\Usuarios.Infrastructure.EfCore\Usuarios.Infrastructure.EfCore.csproj", "{CD440DF4-4001-4002-9981-02E2FA8DB043}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +152,18 @@ Global
 		{8A86A889-409C-49F5-941B-DB43BE7D5166}.Release|x64.Build.0 = Release|Any CPU
 		{8A86A889-409C-49F5-941B-DB43BE7D5166}.Release|x86.ActiveCfg = Release|Any CPU
 		{8A86A889-409C-49F5-941B-DB43BE7D5166}.Release|x86.Build.0 = Release|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Debug|x64.Build.0 = Debug|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Release|x64.ActiveCfg = Release|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Release|x64.Build.0 = Release|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD440DF4-4001-4002-9981-02E2FA8DB043}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1EC36C7C-6882-4C4A-9410-6800FAFF2F88} = {8F72B885-8A43-4917-9F10-EBBEF244AE7B}
@@ -161,5 +175,6 @@ Global
 		{E4853557-81BF-46E7-816F-DC2E798CB0B3} = {A37CB10A-10C1-4A7B-8FF4-0893D0176CE2}
 		{2EF74514-D809-4126-A769-A5EA60AAEA85} = {221B50BA-752C-4CF4-81C0-7FE55711009E}
 		{8A86A889-409C-49F5-941B-DB43BE7D5166} = {02ACE37C-4F92-4C45-9D11-6C76C4349D4F}
+		{CD440DF4-4001-4002-9981-02E2FA8DB043} = {02ACE37C-4F92-4C45-9D11-6C76C4349D4F}
 	EndGlobalSection
 EndGlobal

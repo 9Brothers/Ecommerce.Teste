@@ -32,7 +32,7 @@ namespace Usuarios.Presentation.Tests
                 SexoId = sexo,
             });
 
-            Assert.True(usuario.Id > 0);
+            Assert.True(usuario.UsuarioId > 0);
         }
 
         [Fact]

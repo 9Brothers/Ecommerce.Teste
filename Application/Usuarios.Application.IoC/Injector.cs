@@ -29,18 +29,21 @@ namespace Usuarios.Application.IoC
             services.AddTransient(typeof(IRedisRepository<>), typeof(RedisRepository<>));
             services.AddTransient<IUsuarioSqlServerRepository, UsuarioSqlServerRepository>();
             services.AddTransient<IUsuarioCQRSRepository, UsuarioCQRSRepository>();
-            services.AddTransient(typeof(IPostgresSqlRepository<>), typeof(PostgresSqlRepository<>));
-            services.AddTransient<IUsuarioPostgresSqlRepository, UsuarioPostgresSqlRepository>();
+            services.AddTransient(typeof(IPostgresSqlRepository<>), typeof(PostgresSqlRepository<>));            
 
             // * Redis
-            services.AddDistributedRedisCache(options => {
+            services.AddDistributedRedisCache(options =>
+            {
                 options.Configuration = configuration.GetConnectionString("Redis");
-                options.InstanceName = "Usuarios-";                
-            });       
+                options.InstanceName = "Usuarios-";
+            });
 
             // * Entity Framework
-            services.AddDbContext<UsuariosPostgresDbContext>(options => 
-                options.UseNpgsql(Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ?? configuration.GetConnectionString("Postgres_UsuariosDb")));
+            services.AddDbContext<UsuariosPostgresDbContext>(options => options.UseNpgsql(
+                Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ??
+                configuration.GetConnectionString("Postgres_UsuariosDb")));
+
+            // services.AddDbContext<UsuariosPostgresDbContext>();
         }
     }
 }
